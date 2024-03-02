@@ -109,7 +109,7 @@ embeddings = OpenAIEmbeddings()
 global docs_db
 docs_db = FAISS.load_local("data/merged_vector", embeddings)
 
-async def run_call(query: str, response_length: str, stream_it: AsyncCallbackHandler):
+async def run_call(query: str, stream_it: AsyncCallbackHandler):
     prompt = ""
     docs = docs_db.similarity_search(query)
     prompt += "\n\n"
@@ -127,8 +127,8 @@ async def run_call(query: str, response_length: str, stream_it: AsyncCallbackHan
 class Query(BaseModel):
     query: str
 
-async def create_gen(query: str, response_length: str, stream_it: AsyncCallbackHandler):
-    task = asyncio.create_task(run_call(query, response_length, stream_it))
+async def create_gen(query: str, stream_it: AsyncCallbackHandler):
+    task = asyncio.create_task(run_call(query, stream_it))
     async for token in stream_it.aiter():
         yield token
     await task
@@ -141,10 +141,8 @@ async def chat(
 ):
     stream_it = AsyncCallbackHandler()
     # gen = create_gen(query.text, stream_it)
-    gen = create_gen(query.query, query.responseLength, stream_it)
+    gen = create_gen(query.query, stream_it)
     print(f"query.query --> {query.query}")
-    print(f"query.history --> {query.history}")
-    print(f"query.responseLength --> {query.responseLength}")
     return StreamingResponse(gen, media_type="text/event-stream")
 
 @app.get("/health")
