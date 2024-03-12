@@ -158,7 +158,9 @@ if __name__ == "__main__":
     import subprocess
     import uvicorn
     
-    workers = multiprocessing.cpu_count() * 2 + 1
+    # workers = multiprocessing.cpu_count() * 2 + 1
+
+    workers = multiprocessing.cpu_count()
     
     uvicorn_cmd = [
         "uvicorn",
