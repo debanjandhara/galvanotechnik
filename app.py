@@ -107,7 +107,7 @@ class AsyncCallbackHandler(AsyncIteratorCallbackHandler):
 
 embeddings = OpenAIEmbeddings()
 global docs_db
-docs_db = FAISS.load_local("data/merged_vector", embeddings)
+docs_db = FAISS.load_local("data/merged_vector", embeddings, allow_dangerous_deserialization=True)
 
 async def run_call(query: str, stream_it: AsyncCallbackHandler):
     prompt = ""
