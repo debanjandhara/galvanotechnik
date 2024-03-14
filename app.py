@@ -78,7 +78,7 @@ agent = initialize_agent(
 )
 
 # embeddings = OpenAIEmbeddings()
-# docs_db = FAISS.load_local("data/merged_vector", embeddings)
+# docs_db = FAISS.load_local("data/merged_vector", embeddings, allow_dangerous_deserialization=True)
 
 class AsyncCallbackHandler(AsyncIteratorCallbackHandler):
     content: str = ""
@@ -108,7 +108,7 @@ class AsyncCallbackHandler(AsyncIteratorCallbackHandler):
 
 embeddings = OpenAIEmbeddings()
 global docs_db
-docs_db = FAISS.load_local("data/merged_vector", embeddings, allow_dangerous_deserialization=True)
+docs_db = FAISS.load_local("data/merged_vector", embeddings)
 
 async def run_call(query: str, stream_it: AsyncCallbackHandler):
     prompt = ""
