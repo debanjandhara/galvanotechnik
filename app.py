@@ -70,6 +70,7 @@ agent = initialize_agent(
     tools=[],
     llm=llm,
     verbose=True,
+    handle_parsing_errors=True,
     max_iterations=3,
     early_stopping_method="generate",
     memory=memory,
