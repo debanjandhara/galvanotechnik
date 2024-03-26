@@ -134,7 +134,7 @@ async def create_gen(query: str, stream_it: AsyncCallbackHandler):
         yield token
     await task
 
-@app.post("/get_response_from_ai")
+@app.post("/chatbot-api/get_response_from_ai")
 async def chat(
     # query: Query = Body(...),
     # query: str | None = None
@@ -146,7 +146,7 @@ async def chat(
     print(f"query.query --> {query.query}")
     return StreamingResponse(gen, media_type="text/event-stream")
 
-@app.get("/health")
+@app.get("/chatbot-api/health")
 async def health():
     """Check the api is running"""
     return {"status": "😃"}
