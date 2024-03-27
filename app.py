@@ -161,7 +161,7 @@ if __name__ == "__main__":
     
     # workers = multiprocessing.cpu_count() * 2 + 1
 
-    workers = multiprocessing.cpu_count()
+    workers = 3
     
     uvicorn_cmd = [
         "uvicorn",
